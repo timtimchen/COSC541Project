@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/wholeScreen"
+    tools:context=".SecondTechTestActivity">
+
+    <TextView
+        android:id="@+id/targetHitText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text=""
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageTarget2"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_marginTop="160px"
+        android:layout_marginLeft="100px"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
+
+    <ImageView
+        android:id="@+id/background12"
+        android:layout_width="1000px"
+        android:layout_height="2000px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:alpha="0.2"
+        app:srcCompat="@android:drawable/screen_background_dark" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/NextBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="640dp"
+        android:onClick="gotoNext2"
+        android:text="NEXT"/>
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Thumbs-UP App</string>
+    <string name="welcome1">Hello! Welcome to the Thumbs-UP App.</string>
+    <string name="welcome2">In this app, you will help us to test several thumb-reach-out techniques on your cell phone.</string>
+    <string name="welcome3">Please hold your cell phone with one hand and use the thumb of your holding hand to complete the tests.</string>
+    <string name="welcome4">Now choose your preferred hand to start:</string>
+    <string name="firstTestLabel">First Test Instruction</string>
+    <string name="firstTestInstruct">This is the Instruction. In this app, you will help us to test several thumb-reach-out techniques on your cell phone.</string>
+    <string name="youDone">You have done all the tests. </string>
+</resources>
