@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 
-public class SecondTechTestActivity extends AppCompatActivity {
+public class Test2Activity extends AppCompatActivity {
 
     private boolean triggered = false;
     private boolean finished = false;
@@ -138,7 +138,7 @@ public class SecondTechTestActivity extends AppCompatActivity {
         Long timer = tEnd / totalHits;
         //Log.i("TAG", "time: " + timer.toString());
         //Log.i("TAG", "testMessage: " + message);
-        Intent intent = new Intent(this, ThankYouActivity.class);
+        Intent intent = new Intent(this, SendEvaluationActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }

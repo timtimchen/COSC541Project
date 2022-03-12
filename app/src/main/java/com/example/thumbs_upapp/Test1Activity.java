@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
 import java.util.Random;
 
-public class FirstTechTestActivity extends AppCompatActivity {
+public class Test1Activity extends AppCompatActivity {
 
     private boolean triggered = false;
     private boolean finished = false;
@@ -128,7 +125,7 @@ public class FirstTechTestActivity extends AppCompatActivity {
         Long timer = tEnd / totalHits;
         //Log.i("TAG", "time: " + timer.toString());
         //Log.i("TAG", "testMessage: " + message);
-        Intent intent = new Intent(this, EvaluationActivity.class);
+        Intent intent = new Intent(this, Test1EvaluateActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
@@ -136,7 +133,7 @@ public class FirstTechTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_tech_test);
+        setContentView(R.layout.activity_test_1);
 
         // Get the Intent that started this activity and extract the string
         msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");

@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThumbsUPApp">
         <activity
-            android:name=".SecondTechTestActivity"
+            android:name=".Test2Activity"
             android:exported="false" />
         <activity
-            android:name=".ThankYouActivity"
+            android:name=".SendEvaluationActivity"
             android:exported="false" />
         <activity
-            android:name=".EvaluationActivity"
+            android:name=".Test1EvaluateActivity"
             android:exported="false" />
         <activity
-            android:name=".FirstTechTestActivity"
+            android:name=".Test1Activity"
             android:exported="false" />
         <activity
-            android:name=".FirstTechInstructActivity"
+            android:name=".Test1InstructActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-public class ThankYouActivity extends AppCompatActivity {
+public class SendEvaluationActivity extends AppCompatActivity {
     public void sendEmail(View view) {
         // send out message
         //Log.i("Send email", "");
@@ -31,7 +31,7 @@ public class ThankYouActivity extends AppCompatActivity {
             finish();
             Log.i("Finished sending", "");
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ThankYouActivity.this,
+            Toast.makeText(SendEvaluationActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
 
@@ -42,6 +42,6 @@ public class ThankYouActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thank_you);
+        setContentView(R.layout.activity_send_evaluation);
     }
 }

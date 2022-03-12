@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class TestMessagePackage implements Serializable {
     public String preferHand = "";
+    public int lastTestNum = 0;
     public long timer1 = 0;
     public double accuracy1 = 1.0;
     public double preference1 = 1.0;

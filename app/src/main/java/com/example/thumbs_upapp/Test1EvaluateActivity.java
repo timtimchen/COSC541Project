@@ -3,15 +3,12 @@ package com.example.thumbs_upapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class EvaluationActivity extends AppCompatActivity {
+public class Test1EvaluateActivity extends AppCompatActivity {
 
     private TestMessagePackage msgPackage;
     private RatingBar mBar;
@@ -20,7 +17,7 @@ public class EvaluationActivity extends AppCompatActivity {
 
         //Log.i("TAG", "rating: " + mBar.getRating());
         msgPackage.preference1 = mBar.getRating();
-        Intent intent = new Intent(this, SecondTechTestActivity.class);
+        Intent intent = new Intent(this, Test2Activity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
@@ -28,7 +25,7 @@ public class EvaluationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_evaluation);
+        setContentView(R.layout.activity_test_1_evaluate);
 
         // Get the Intent that started this activity and extract the string
         msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");
