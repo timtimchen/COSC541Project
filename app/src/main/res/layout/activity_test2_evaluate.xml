@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Test1EvaluateActivity">
-
+    tools:context=".Test2EvaluateActivity">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/SubmitFirstBtn"
+        android:id="@+id/SubmitBtn2"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="submitAndNext"
+        android:onClick="submitAndNext2"
         android:text="NEXT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,17 +20,17 @@
         app:layout_constraintVertical_bias="0.76" />
 
     <RatingBar
-        android:id="@+id/ratingBar1"
+        android:id="@+id/ratingBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/SubmitFirstBtn"
+        app:layout_constraintBottom_toTopOf="@+id/SubmitBtn2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.73" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textView122"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please rate:"
@@ -43,10 +42,10 @@
         app:layout_constraintVertical_bias="0.25" />
 
     <TextView
-        android:id="@+id/textView51"
+        android:id="@+id/textView52"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TestLabel1"
+        android:text="@string/TestLabel2"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

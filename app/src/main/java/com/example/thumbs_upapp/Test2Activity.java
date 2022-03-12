@@ -38,7 +38,7 @@ public class Test2Activity extends AppCompatActivity {
     int maxWidth;
     private TestMessagePackage msgPackage;
     private int userHits = 0;
-    private int totalHits = 10;
+    private int totalHits = 3;
     private boolean rightHand = true;
     private Long tStart, tEnd;
     ImageView imageView;
@@ -200,8 +200,8 @@ public class Test2Activity extends AppCompatActivity {
                     if (userHits >= totalHits) {
                         // record the spend total time in milliseconds
                         tEnd = System.currentTimeMillis() - tStart;
-                        msgPackage.timer1 = tEnd;
-                        msgPackage.accuracy1 = (double) totalHits / (totalHits + failedHit);
+                        msgPackage.timer2 = tEnd / totalHits;
+                        msgPackage.accuracy2 = (double) totalHits / (totalHits + failedHit);
                         // show goto the next button
                         disablePosition();
                         imageView.setVisibility(View.GONE);

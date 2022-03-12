@@ -189,7 +189,7 @@ public class Test1Activity extends AppCompatActivity {
                     if (userHits >= totalHits) {
                         // record the spend total time in milliseconds
                         tEnd = System.currentTimeMillis() - tStart;
-                        msgPackage.timer1 = tEnd;
+                        msgPackage.timer1 = tEnd / totalHits;
                         msgPackage.accuracy1 = (double) totalHits / (totalHits + failedHit);
                         // show goto the next button
                         disablePosition();

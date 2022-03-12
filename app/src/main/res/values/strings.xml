@@ -6,5 +6,21 @@
     <string name="welcome4">Now choose your preferred hand to start:</string>
     <string name="firstTestLabel">First Test Instruction</string>
     <string name="firstTestInstruct">This is the Instruction. In this app, you will help us to test several thumb-reach-out techniques on your cell phone.</string>
+    <string name="TestLabel1">Large Touch with Sliding Screen</string>
+    <string name="TestInstruct1">Touch the screen with your preferred thumb for at least 1 second and slide the screen down to get the target circle closer to the thumb and select it.</string>
+    <string name="TestLabel2">Edge Trigger with sliding screen</string>
+    <string name="TestInstruct2">Trigger the edge of your preferred hand and slide the screen down to get the target circle closer to the thumb and select it.</string>
+    <string name="TestLabel3">Large Touch with Screen Reduction</string>
+    <string name="TestInstruct3">Touch the screen with your preferred thumb for at least 1 second and for the screen will reduced with 70% and will be near your preferred hand. Select the target to complete the trial.</string>
+    <string name="TestLabel4">Edge Trigger with Screen Reduction</string>
+    <string name="TestInstruct4">Trigger the edge of your preferred hand and for the screen will reduced with 70% and will be near your preferred hand. Select the target to complete the trial.</string>
+    <string name="TestLabel5">Large Touch with Extendible Cursor</string>
+    <string name="TestInstruct5">Touch the screen with your preferred thumb for at least 1 second and move the thumb in the opposite direction as your target till the generated cursor is reaches the target.</string>
+    <string name="TestLabel6">Edge Triger with Extendible Cursor</string>
+    <string name="TestInstruct6">Trigger the edge of your preferred hand and move the thumb in the opposite direction as your target till the generated cursor is reaches the target.</string>
+    <string name="TestLabel7">Large Touch with Cursor</string>
+    <string name="TestInstruct7">Touch the screen with your preferred thumb for at least 1 second and the cursor will generate and will select the target.</string>
+    <string name="TestLabel8">Edge Trigger with Cursor</string>
+    <string name="TestInstruct8">Trigger the edge of your preferred hand and the cursor will generate and will select the target.</string>
     <string name="youDone">You have done all the tests. </string>
 </resources>
