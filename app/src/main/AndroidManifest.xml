@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThumbsUPApp">
         <activity
+            android:name=".Test4EvaluateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Test4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Test4InstructActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Test3EvaluateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Test3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Test3InstructActivity"
+            android:exported="false" />
+        <activity
             android:name=".Test2EvaluateActivity"
             android:exported="false" />
         <activity

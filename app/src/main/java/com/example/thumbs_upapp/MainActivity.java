@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         msgPackage = new TestMessagePackage();
-        msgPackage.lastTestNum = 2;
-        intent = new Intent(this, Test1InstructActivity.class);
+        msgPackage.lastTestNum = 3;
+        intent = new Intent(this, Test3InstructActivity.class);
     }
 
     /** Called when the user taps the left_hand button */

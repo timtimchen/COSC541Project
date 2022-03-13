@@ -3,7 +3,6 @@ package com.example.thumbs_upapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -135,10 +134,10 @@ public class Test2Activity extends AppCompatActivity {
     }
 
     public void gotoNext2(View view) {
-        Long timer = tEnd / totalHits;
+        //Long timer = tEnd / totalHits;
         //Log.i("TAG", "time: " + timer.toString());
         //Log.i("TAG", "testMessage: " + message);
-        Intent intent = new Intent(this, SendEvaluationActivity.class);
+        Intent intent = new Intent(this, Test2EvaluateActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
@@ -146,7 +145,7 @@ public class Test2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second_tech_test);
+        setContentView(R.layout.activity_test2);
 
         // Get the Intent that started this activity and extract the string
         msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -14,35 +15,32 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class Test1Activity extends AppCompatActivity {
+public class Test3Activity extends AppCompatActivity {
 
     private boolean triggered = false;
     private boolean finished = false;
     private boolean isHit = false;
     private int failedHit = 0;
-    private int slidingScreenX = 0;
-    private int slidingScreenY = 0;
     private int bigTouchThreshold = 1000; // 1000 ms = 1 second
     private int radius = 60;
+    private int reducePercentage = 70;
     private int targetPositionX = 0;
     private int targetPositionY = 0;
     private int originX = 0;
     private int originY = 0;
-    private int shiftX = 0;
-    private int shiftY = 0;
     int maxHeight;
     int maxWidth;
     private TestMessagePackage msgPackage;
     private int userHits = 0;
-    private int totalHits = 3;
+    private int totalHits = 10;
     private boolean rightHand = true;
     private Long tStart, tEnd, bigTouchTimer;
     ImageView imageView;
     ImageView imageView1;
-//    ImageView imageView2;
+    ImageView imageView2;
     RelativeLayout.LayoutParams par;
     RelativeLayout.LayoutParams par1;
-//    RelativeLayout.LayoutParams par2;
+    RelativeLayout.LayoutParams par2;
     TextView textView;
     Button nextBtn;
     Random rand = new Random(System.currentTimeMillis());
@@ -53,7 +51,11 @@ public class Test1Activity extends AppCompatActivity {
 
     private boolean isAHit(int x, int y) {
         //Log.i("TAG", " (" + positionX + ", " + positionY + ") : (" + x + ", " + y + ")");
-        return (x - targetPositionX) * (x - targetPositionX) + (y - targetPositionY) * (y - targetPositionY) <= radius * radius;
+        int r = radius;
+        if (triggered) {
+            r = radius * reducePercentage / 100;
+        }
+        return (x - targetPositionX) * (x - targetPositionX) + (y - targetPositionY) * (y - targetPositionY) <= r * r;
     }
 
     private void hideSystemUI() {
@@ -74,22 +76,43 @@ public class Test1Activity extends AppCompatActivity {
     }
 
     private void showImageInNewPosition() {
-        par.leftMargin = targetPositionX - radius;
-        par.topMargin = targetPositionY - radius;
+        int r = radius;
+        int w = maxWidth;
+        if (triggered) {
+            r = radius * reducePercentage / 100;
+            w = maxWidth * reducePercentage / 100;
+        }
+        par.leftMargin = targetPositionX - r;
+        par.topMargin = targetPositionY - r;
+        par.width = r * 2;
+        par.height = r * 2;
         imageView.setLayoutParams(par);
-         par1.leftMargin = originX;
+        par1.leftMargin = originX;
         par1.topMargin = originY;
-        par1.width = maxWidth;
-        par1.height = maxWidth * 2;
+        par1.width = w;
+        par1.height = w;
         imageView1.setLayoutParams(par1);
-        /*
         par2.leftMargin = originX;
-        par2.topMargin = originY + maxWidth;
-        par2.width = maxWidth;
-        par2.height = maxWidth;
+        par2.topMargin = originY + w;
+        par2.width = w;
+        par2.height = w;
         imageView2.setLayoutParams(par2);
-        */
     }
+
+    private void reduceScreen() {
+        if (rightHand) {
+            originX = maxWidth * (100 - reducePercentage) / 100;
+            originY = maxHeight * (100 - reducePercentage) / 100;
+            targetPositionX = maxWidth - (maxWidth - targetPositionX) * reducePercentage / 100;
+            targetPositionY = maxHeight - (maxHeight - targetPositionY) * reducePercentage / 100;
+        } else {
+            originY = maxHeight * (100 - reducePercentage) / 100;
+            targetPositionX = targetPositionX * reducePercentage / 100;
+            targetPositionY = maxHeight - (maxHeight - targetPositionY) * reducePercentage / 100;
+        }
+        showImageInNewPosition();
+    }
+
     private void refreshPosition() {
         int x, y;
         int threshold = maxWidth + maxHeight - 1500;
@@ -121,11 +144,11 @@ public class Test1Activity extends AppCompatActivity {
         imageView.setLayoutParams(par);
     }
 
-    public void gotoNext(View view) {
+    public void gotoNext3(View view) {
         //Long timer = tEnd / totalHits;
         //Log.i("TAG", "time: " + timer.toString());
         //Log.i("TAG", "testMessage: " + message);
-        Intent intent = new Intent(this, Test1EvaluateActivity.class);
+        Intent intent = new Intent(this, Test3EvaluateActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
@@ -133,7 +156,7 @@ public class Test1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_1);
+        setContentView(R.layout.activity_test3);
 
         // Get the Intent that started this activity and extract the string
         msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");
@@ -146,25 +169,22 @@ public class Test1Activity extends AppCompatActivity {
 
         hideSystemUI();
 
-        nextBtn = (Button) findViewById(R.id.FirstToNextBtn);
+        nextBtn = (Button) findViewById(R.id.NextBtn3);
         nextBtn.setVisibility(View.GONE);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         maxHeight = displayMetrics.heightPixels;
         maxWidth = displayMetrics.widthPixels;
-        imageView= (ImageView)findViewById(R.id.imageTarget);
+        imageView= (ImageView)findViewById(R.id.imageTarget3);
         par = (RelativeLayout.LayoutParams)imageView.getLayoutParams();
-        imageView1= (ImageView)findViewById(R.id.background1);
+        imageView1= (ImageView)findViewById(R.id.background13);
         par1 = (RelativeLayout.LayoutParams)imageView1.getLayoutParams();
-        /*
-        imageView2= (ImageView)findViewById(R.id.background2);
+        imageView2= (ImageView)findViewById(R.id.background23);
         par2 = (RelativeLayout.LayoutParams)imageView2.getLayoutParams();
-         */
-        textView = findViewById(R.id.targetHitText);
+        textView = findViewById(R.id.targetHitText3);
         refreshPosition();
         textView.setText(currentHits());
-
         // record the start time of listening the user hit the target
         tStart = System.currentTimeMillis();
         bigTouchTimer = tStart;
@@ -202,8 +222,7 @@ public class Test1Activity extends AppCompatActivity {
                     if (!finished) {
                         if (triggered) {
                             // triggered state: detect if there is a screen sliding movement
-                            slidingScreenX = x;
-                            slidingScreenY = y;
+                            failedHit++;
                         } else {
                             // normal state: detect if there is big touch
                             bigTouchTimer = System.currentTimeMillis();
@@ -213,20 +232,6 @@ public class Test1Activity extends AppCompatActivity {
                 break;
             case MotionEvent.ACTION_MOVE:
                 //Log.i("TAG", "moving: (" + x + ", " + y + ")");
-                if (triggered) {
-                    //Log.i("TAG", "moving: (" + x + ", " + y + ")");
-                    // triggered state: detect if there is a screen sliding movement
-                    shiftX = x - slidingScreenX;
-                    shiftY = y - slidingScreenY;
-                    originX += shiftX;
-                    originY += shiftY;
-                    targetPositionX += shiftX;
-                    targetPositionY += shiftY;
-                    showImageInNewPosition();
-
-                    slidingScreenX = x;
-                    slidingScreenY = y;
-                }
                 break;
             case MotionEvent.ACTION_UP:
                 Long touchTime = System.currentTimeMillis() - bigTouchTimer;
@@ -236,16 +241,16 @@ public class Test1Activity extends AppCompatActivity {
                         // triggered state: detect if there is a screen sliding movement
                     } else {
                         // normal state: detect if there is big touch
-                         if (touchTime > bigTouchThreshold) {
-                             triggered = true;
-                         } else {
-                             failedHit++;
-                         }
+                        if (touchTime > bigTouchThreshold) {
+                            triggered = true;
+                            reduceScreen();
+                        } else {
+                            failedHit++;
+                        }
                     }
                 break;
         }
 
         return false;
     }
-
 }
