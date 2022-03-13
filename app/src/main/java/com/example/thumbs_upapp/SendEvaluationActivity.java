@@ -10,11 +10,14 @@ import android.view.View;
 import android.widget.Toast;
 
 public class SendEvaluationActivity extends AppCompatActivity {
+
+    private TestMessagePackage msgPackage;
+
     public void sendEmail(View view) {
         // send out message
         //Log.i("Send email", "");
 
-        String[] TO = {"joe.jinghong.chen@gmail.com"};
+        String[] TO = {"zkagdiwala@gmail.com"};
         //String[] CC = {"xyz@gmail.com"};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setData(Uri.parse("mailto:"));
@@ -23,8 +26,8 @@ public class SendEvaluationActivity extends AppCompatActivity {
 
         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
         //emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Thumps up App evaluation result");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, msgPackage);
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
@@ -43,5 +46,8 @@ public class SendEvaluationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_evaluation);
+
+        msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");
+
     }
 }

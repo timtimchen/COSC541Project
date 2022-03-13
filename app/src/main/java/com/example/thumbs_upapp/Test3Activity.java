@@ -209,8 +209,8 @@ public class Test3Activity extends AppCompatActivity {
                     if (userHits >= totalHits) {
                         // record the spend total time in milliseconds
                         tEnd = System.currentTimeMillis() - tStart;
-                        msgPackage.timer1 = tEnd / totalHits;
-                        msgPackage.accuracy1 = (double) totalHits / (totalHits + failedHit);
+                        msgPackage.timer3 = tEnd / totalHits;
+                        msgPackage.accuracy3 = (double) totalHits / (totalHits + failedHit);
                         // show goto the next button
                         disablePosition();
                         imageView.setVisibility(View.GONE);
