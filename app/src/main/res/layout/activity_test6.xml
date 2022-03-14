@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/wholeScreen1"
-    tools:context=".Test1Activity">
+    android:id="@+id/wholeScreen6"
+    tools:context=".Test6Activity">
 
     <TextView
-        android:id="@+id/targetHitText"
+        android:id="@+id/targetHitText6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -17,7 +17,7 @@
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/imageTarget"
+        android:id="@+id/imageTarget6"
         android:layout_width="120px"
         android:layout_height="120px"
         android:layout_marginTop="160px"
@@ -25,22 +25,21 @@
         app:srcCompat="@android:drawable/ic_notification_overlay" />
 
     <ImageView
-        android:id="@+id/background1"
+        android:id="@+id/background16"
         android:layout_width="1000px"
         android:layout_height="2000px"
         android:layout_marginLeft="0px"
         android:layout_marginTop="0px"
-        android:alpha="0.2"
-        app:srcCompat="@android:drawable/screen_background_dark" />
+        android:alpha="0.6" />
 
     <com.google.android.material.button.MaterialButton
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:id="@+id/FirstToNextBtn"
+        android:id="@+id/NextBtn6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="640dp"
-        android:onClick="gotoNext"
+        android:onClick="gotoNext6"
         android:text="NEXT"/>
 
 </RelativeLayout>

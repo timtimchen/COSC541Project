@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
 
-public class Test4EvaluateActivity extends AppCompatActivity {
+public class Test6EvaluateActivity extends AppCompatActivity {
 
     private TestMessagePackage msgPackage;
     private RatingBar mBar;
     private Intent intent;
 
-    public void submitAndNext4(View view) {
+    public void submitAndNext6(View view) {
 
         //Log.i("TAG", "rating: " + mBar.getRating());
-        msgPackage.preference4 = mBar.getRating();
-        if (msgPackage.lastTestNum == 4)
+        msgPackage.preference6 = mBar.getRating();
+        if (msgPackage.lastTestNum == 6)
             intent = new Intent(this, SendEvaluationActivity.class);
         else
-            intent = new Intent(this, Test5InstructActivity.class);
+            intent = new Intent(this, Test1InstructActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
@@ -28,12 +28,12 @@ public class Test4EvaluateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test4_evaluate);
+        setContentView(R.layout.activity_test6_evaluate);
 
         // Get the Intent that started this activity and extract the string
         msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");
         //Log.i("TAG", "accuracy: " + msgPackage.accuracy1);
 
-        mBar = (RatingBar) findViewById(R.id.ratingBar4);
+        mBar = (RatingBar) findViewById(R.id.ratingBar6);
     }
 }
