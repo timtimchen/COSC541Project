@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         msgPackage = new TestMessagePackage();
         msgPackage.lastTestNum = 6;
-        intent = new Intent(this, Test5InstructActivity.class);
+        intent = new Intent(this, Test1InstructActivity.class);
     }
 
     /** Called when the user taps the left_hand button */

@@ -32,7 +32,7 @@ public class Test3Activity extends AppCompatActivity {
     int maxWidth;
     private TestMessagePackage msgPackage;
     private int userHits = 0;
-    private int totalHits = 10;
+    private int totalHits = 3;
     private boolean rightHand = true;
     private Long tStart, tEnd, bigTouchTimer;
     ImageView imageView;
