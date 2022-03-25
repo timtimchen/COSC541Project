@@ -20,7 +20,7 @@ public class Test6EvaluateActivity extends AppCompatActivity {
         if (msgPackage.lastTestNum == 6)
             intent = new Intent(this, SendEvaluationActivity.class);
         else
-            intent = new Intent(this, Test1InstructActivity.class);
+            intent = new Intent(this, Test7InstructActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
