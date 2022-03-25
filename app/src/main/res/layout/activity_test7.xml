@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/wholeScreen7"
+    tools:context=".Test7Activity">
+
+    <TextView
+        android:id="@+id/targetHitText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/firstTestLabel"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageTarget7"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_marginTop="160px"
+        android:layout_marginLeft="100px"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
+
+    <ImageView
+        android:id="@+id/background17"
+        android:layout_width="1000px"
+        android:layout_height="2000px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:alpha="0.6" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:id="@+id/NextBtn7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="640dp"
+        android:onClick="gotoNext7"
+        android:text="NEXT"/>
+
+</RelativeLayout>

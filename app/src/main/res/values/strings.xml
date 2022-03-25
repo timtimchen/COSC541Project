@@ -18,9 +18,9 @@
     <string name="TestInstruct5">Touch the screen with your preferred thumb for at least 1 second and move the thumb in the opposite direction as your target till the generated cursor is reaches the target.</string>
     <string name="TestLabel6">Edge Triger with Extendible Cursor</string>
     <string name="TestInstruct6">Trigger the edge of your preferred hand and move the thumb in the opposite direction as your target till the generated cursor is reaches the target.</string>
-    <string name="TestLabel7">Large Touch with Cursor</string>
+    <string name="TestLabel7">Large Touch with Movable Cursor</string>
     <string name="TestInstruct7">Touch the screen with your preferred thumb for at least 1 second and the cursor will generate and will select the target.</string>
-    <string name="TestLabel8">Edge Trigger with Cursor</string>
+    <string name="TestLabel8">Edge Trigger with Movable Cursor</string>
     <string name="TestInstruct8">Trigger the edge of your preferred hand and the cursor will generate and will select the target.</string>
     <string name="youDone">You have done all the tests. </string>
 </resources>

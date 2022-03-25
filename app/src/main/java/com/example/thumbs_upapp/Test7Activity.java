@@ -3,9 +3,13 @@ package com.example.thumbs_upapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,19 +19,22 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class Test3Activity extends AppCompatActivity {
+public class Test7Activity extends AppCompatActivity {
 
     private boolean triggered = false;
     private boolean finished = false;
     private boolean isHit = false;
     private int failedHit = 0;
+    private int cursorX = 0;
+    private int cursorY = 0;
+    private int handleX = 0;
+    private int handleY = 0;
+    private int handleRadius = 64;
+    private boolean gotHandle = false;
     private int bigTouchThreshold = 1000; // 1000 ms = 1 second
     private int radius = 60;
-    private int reducePercentage = 70;
     private int targetPositionX = 0;
     private int targetPositionY = 0;
-    private int originX = 0;
-    private int originY = 0;
     int maxHeight;
     int maxWidth;
     private TestMessagePackage msgPackage;
@@ -37,12 +44,13 @@ public class Test3Activity extends AppCompatActivity {
     private Long tStart, tEnd, bigTouchTimer;
     ImageView imageView;
     ImageView imageView1;
-    ImageView imageView2;
     RelativeLayout.LayoutParams par;
     RelativeLayout.LayoutParams par1;
-    RelativeLayout.LayoutParams par2;
     TextView textView;
     Button nextBtn;
+    Bitmap myBitmap;
+    Canvas myCanvas;
+
     Random rand = new Random(System.currentTimeMillis());
 
     private String currentHits() {
@@ -51,11 +59,12 @@ public class Test3Activity extends AppCompatActivity {
 
     private boolean isAHit(int x, int y) {
         //Log.i("TAG", " (" + positionX + ", " + positionY + ") : (" + x + ", " + y + ")");
-        int r = radius;
-        if (triggered) {
-            r = radius * reducePercentage / 100;
-        }
-        return (x - targetPositionX) * (x - targetPositionX) + (y - targetPositionY) * (y - targetPositionY) <= r * r;
+        return (x - targetPositionX) * (x - targetPositionX) + (y - targetPositionY) * (y - targetPositionY) <= radius * radius;
+    }
+
+    private boolean getHandle(int x, int y) {
+        //Log.i("TAG", " (" + positionX + ", " + positionY + ") : (" + x + ", " + y + ")");
+        return (x - handleX) * (x - handleX) + (y - handleY) * (y - handleY) <= handleRadius * handleRadius;
     }
 
     private void hideSystemUI() {
@@ -76,41 +85,9 @@ public class Test3Activity extends AppCompatActivity {
     }
 
     private void showImageInNewPosition() {
-        int r = radius;
-        int w = maxWidth;
-        if (triggered) {
-            r = radius * reducePercentage / 100;
-            w = maxWidth * reducePercentage / 100;
-        }
-        par.leftMargin = targetPositionX - r;
-        par.topMargin = targetPositionY - r;
-        par.width = r * 2;
-        par.height = r * 2;
+        par.leftMargin = targetPositionX - radius;
+        par.topMargin = targetPositionY - radius;
         imageView.setLayoutParams(par);
-        par1.leftMargin = originX;
-        par1.topMargin = originY;
-        par1.width = w;
-        par1.height = w;
-        imageView1.setLayoutParams(par1);
-        par2.leftMargin = originX;
-        par2.topMargin = originY + w;
-        par2.width = w;
-        par2.height = w;
-        imageView2.setLayoutParams(par2);
-    }
-
-    private void reduceScreen() {
-        if (rightHand) {
-            originX = maxWidth * (100 - reducePercentage) / 100;
-            originY = maxHeight * (100 - reducePercentage) / 100;
-            targetPositionX = maxWidth - (maxWidth - targetPositionX) * reducePercentage / 100;
-            targetPositionY = maxHeight - (maxHeight - targetPositionY) * reducePercentage / 100;
-        } else {
-            originY = maxHeight * (100 - reducePercentage) / 100;
-            targetPositionX = targetPositionX * reducePercentage / 100;
-            targetPositionY = maxHeight - (maxHeight - targetPositionY) * reducePercentage / 100;
-        }
-        showImageInNewPosition();
     }
 
     private void refreshPosition() {
@@ -127,8 +104,6 @@ public class Test3Activity extends AppCompatActivity {
         }
         targetPositionX = x + radius;
         targetPositionY = y + radius;
-        originX = 0;
-        originY = 0;
         showImageInNewPosition();
     }
 
@@ -144,11 +119,9 @@ public class Test3Activity extends AppCompatActivity {
         imageView.setLayoutParams(par);
     }
 
-    public void gotoNext3(View view) {
-        //Long timer = tEnd / totalHits;
-        //Log.i("TAG", "time: " + timer.toString());
+    public void gotoNext7(View view) {
         //Log.i("TAG", "testMessage: " + message);
-        Intent intent = new Intent(this, Test3EvaluateActivity.class);
+        Intent intent = new Intent(this, Test7EvaluateActivity.class);
         intent.putExtra("TestMessage", msgPackage);
         startActivity(intent);
     }
@@ -156,7 +129,7 @@ public class Test3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test3);
+        setContentView(R.layout.activity_test7);
 
         // Get the Intent that started this activity and extract the string
         msgPackage = (TestMessagePackage) getIntent().getSerializableExtra("TestMessage");
@@ -169,22 +142,28 @@ public class Test3Activity extends AppCompatActivity {
 
         hideSystemUI();
 
-        nextBtn = (Button) findViewById(R.id.NextBtn3);
+        nextBtn = (Button) findViewById(R.id.NextBtn7);
         nextBtn.setVisibility(View.GONE);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         maxHeight = displayMetrics.heightPixels;
         maxWidth = displayMetrics.widthPixels;
-        imageView= (ImageView)findViewById(R.id.imageTarget3);
+        imageView= (ImageView)findViewById(R.id.imageTarget7);
         par = (RelativeLayout.LayoutParams)imageView.getLayoutParams();
-        imageView1= (ImageView)findViewById(R.id.background13);
+        imageView1= (ImageView)findViewById(R.id.background17);
         par1 = (RelativeLayout.LayoutParams)imageView1.getLayoutParams();
-        imageView2= (ImageView)findViewById(R.id.background23);
-        par2 = (RelativeLayout.LayoutParams)imageView2.getLayoutParams();
-        textView = findViewById(R.id.targetHitText3);
+        par1.width = maxWidth;
+        par1.height = maxWidth * 2;
+        imageView1.setLayoutParams(par1);
+        myBitmap = Bitmap.createBitmap(maxWidth, maxWidth * 2, Bitmap.Config.ARGB_8888);
+        myCanvas = new Canvas(myBitmap);
+        myCanvas.drawColor(Color.TRANSPARENT);
+
+        textView = findViewById(R.id.targetHitText7);
         refreshPosition();
         textView.setText(currentHits());
+
         // record the start time of listening the user hit the target
         tStart = System.currentTimeMillis();
         bigTouchTimer = tStart;
@@ -200,6 +179,8 @@ public class Test3Activity extends AppCompatActivity {
             case MotionEvent.ACTION_DOWN:
                 //Log.i("TAG", "action down: (" + x + ", " + y + ")");
                 if (isAHit(x, y)) {
+                    myCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                    imageView1.setImageBitmap(myBitmap);
                     triggered = false;
                     isHit = true;
                     refreshPosition();
@@ -209,8 +190,8 @@ public class Test3Activity extends AppCompatActivity {
                     if (userHits >= totalHits) {
                         // record the spend total time in milliseconds
                         tEnd = System.currentTimeMillis() - tStart;
-                        msgPackage.timer3 = tEnd / totalHits;
-                        msgPackage.accuracy3 = (double) totalHits / (totalHits + failedHit);
+                        msgPackage.timer7 = tEnd / totalHits;
+                        msgPackage.accuracy7 = (double) totalHits / (totalHits + failedHit);
                         // show goto the next button
                         disablePosition();
                         imageView.setVisibility(View.GONE);
@@ -221,8 +202,29 @@ public class Test3Activity extends AppCompatActivity {
                     isHit = false;
                     if (!finished) {
                         if (triggered) {
-                            // triggered state: detect if there is a screen sliding movement
-                            failedHit++;
+                            if (getHandle(x, y)) {
+                                // triggered state: detect if there is a screen sliding movement
+                                gotHandle = true;
+                            } else {
+                                // triggered state: drawing cursor
+                                gotHandle = false;
+                                failedHit++;
+                                myCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                                cursorX = x;
+                                cursorY = y;
+                                handleX = x;
+                                handleY = y;
+                                Paint paint = new Paint();
+                                paint.setColor(Color.GREEN);
+                                paint.setStyle(Paint.Style.STROKE);
+                                paint.setStrokeWidth(16);
+                                paint.setAntiAlias(true);
+                                myCanvas.drawCircle(handleX, handleY, 8, paint);
+                                myCanvas.drawCircle(handleX, handleY, 24, paint);
+                                myCanvas.drawCircle(handleX, handleY, 40, paint);
+                                myCanvas.drawCircle(handleX, handleY, 56, paint);
+                                imageView1.setImageBitmap(myBitmap);
+                            }
                         } else {
                             // normal state: detect if there is big touch
                             bigTouchTimer = System.currentTimeMillis();
@@ -232,6 +234,32 @@ public class Test3Activity extends AppCompatActivity {
                 break;
             case MotionEvent.ACTION_MOVE:
                 //Log.i("TAG", "moving: (" + x + ", " + y + ")");
+                if (triggered) {
+                    // triggered state 1
+                    if (gotHandle) {
+                        cursorX += x - handleX;
+                        cursorY += y - handleY;
+                        handleX = x;
+                        handleY = y;
+                    } else {
+                        handleX = x;
+                        handleY = y;
+                    }
+                    myCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                    Paint paint = new Paint();
+                    paint.setColor(Color.GREEN);
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setStrokeWidth(16);
+                    paint.setAntiAlias(true);
+                    myCanvas.drawCircle(handleX, handleY, 8, paint);
+                    myCanvas.drawCircle(handleX, handleY, 24, paint);
+                    myCanvas.drawCircle(handleX, handleY, 40, paint);
+                    myCanvas.drawCircle(handleX, handleY, 56, paint);
+                    myCanvas.drawLine(cursorX,cursorY, x, y, paint);
+                    myCanvas.drawCircle(cursorX, cursorY, 8, paint);
+                    myCanvas.drawCircle(cursorX, cursorY, 24, paint);
+                    imageView1.setImageBitmap(myBitmap);
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 Long touchTime = System.currentTimeMillis() - bigTouchTimer;
@@ -239,11 +267,33 @@ public class Test3Activity extends AppCompatActivity {
                 if (!finished && !isHit)
                     if (triggered) {
                         // triggered state: detect if there is a screen sliding movement
+                        if (isAHit(cursorX, cursorY)) {
+                            myCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                            imageView1.setImageBitmap(myBitmap);
+                            triggered = false;
+                            isHit = true;
+                            refreshPosition();
+                            userHits++;
+                            textView.setText(currentHits());
+                            // check if the test is finished
+                            if (userHits >= totalHits) {
+                                // record the spend total time in milliseconds
+                                tEnd = System.currentTimeMillis() - tStart;
+                                msgPackage.timer7 = tEnd / totalHits;
+                                msgPackage.accuracy7 = (double) totalHits / (totalHits + failedHit);
+                                // show goto the next button
+                                disablePosition();
+                                imageView.setVisibility(View.GONE);
+                                nextBtn.setVisibility(View.VISIBLE);
+                                finished = true;
+                            }
+                        } else {
+                            failedHit++;
+                        }
                     } else {
                         // normal state: detect if there is big touch
                         if (touchTime > bigTouchThreshold) {
                             triggered = true;
-                            reduceScreen();
                         } else {
                             failedHit++;
                         }

@@ -37,7 +37,7 @@ public class Test2Activity extends AppCompatActivity {
     int maxWidth;
     private TestMessagePackage msgPackage;
     private int userHits = 0;
-    private int totalHits = 3;
+    private int totalHits = 10;
     private boolean rightHand = true;
     private Long tStart, tEnd;
     ImageView imageView;
@@ -104,7 +104,7 @@ public class Test2Activity extends AppCompatActivity {
     }
     private void refreshPosition() {
         int x, y;
-        int threshold = maxWidth + maxHeight - 1500;
+        int threshold = maxWidth + maxHeight - 1800;
         x = rand.nextInt(maxWidth - 2 * radius);
         y = rand.nextInt(maxHeight - 2 * radius);
         while (x + y > threshold) {

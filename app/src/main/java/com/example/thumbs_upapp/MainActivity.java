@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         msgPackage = new TestMessagePackage();
-        msgPackage.lastTestNum = 6;
+        msgPackage.lastTestNum = 8;
         intent = new Intent(this, Test1InstructActivity.class);
     }
 

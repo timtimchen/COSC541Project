@@ -15,7 +15,7 @@ public class SendEvaluationActivity extends AppCompatActivity {
 
     public void sendEmail(View view) {
         // send out message
-        //Log.i("Send email", "");
+        Log.i("Final Results", msgPackage.getCSVlog());
 
         String[] TO = {"zkagdiwala@gmail.com"};
         //String[] CC = {"xyz@gmail.com"};
@@ -27,7 +27,7 @@ public class SendEvaluationActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
         //emailIntent.putExtra(Intent.EXTRA_CC, CC);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Thumps up App evaluation result");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, msgPackage);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, msgPackage.getCSVlog());
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));

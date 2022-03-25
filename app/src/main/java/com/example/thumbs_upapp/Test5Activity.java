@@ -39,7 +39,7 @@ public class Test5Activity extends AppCompatActivity {
     int maxWidth;
     private TestMessagePackage msgPackage;
     private int userHits = 0;
-    private int totalHits = 3;
+    private int totalHits = 10;
     private boolean rightHand = true;
     private Long tStart, tEnd, bigTouchTimer;
     ImageView imageView;
@@ -87,7 +87,7 @@ public class Test5Activity extends AppCompatActivity {
 
     private void refreshPosition() {
         int x, y;
-        int threshold = maxWidth + maxHeight - 1500;
+        int threshold = maxWidth + maxHeight - 1800;
         x = rand.nextInt(maxWidth - 2 * radius);
         y = rand.nextInt(maxHeight - 2 * radius);
         while (x + y > threshold) {
@@ -185,8 +185,8 @@ public class Test5Activity extends AppCompatActivity {
                     if (userHits >= totalHits) {
                         // record the spend total time in milliseconds
                         tEnd = System.currentTimeMillis() - tStart;
-                        msgPackage.timer1 = tEnd / totalHits;
-                        msgPackage.accuracy1 = (double) totalHits / (totalHits + failedHit);
+                        msgPackage.timer5 = tEnd / totalHits;
+                        msgPackage.accuracy5 = (double) totalHits / (totalHits + failedHit);
                         // show goto the next button
                         disablePosition();
                         imageView.setVisibility(View.GONE);
@@ -255,8 +255,8 @@ public class Test5Activity extends AppCompatActivity {
                             if (userHits >= totalHits) {
                                 // record the spend total time in milliseconds
                                 tEnd = System.currentTimeMillis() - tStart;
-                                msgPackage.timer1 = tEnd / totalHits;
-                                msgPackage.accuracy1 = (double) totalHits / (totalHits + failedHit);
+                                msgPackage.timer5 = tEnd / totalHits;
+                                msgPackage.accuracy5 = (double) totalHits / (totalHits + failedHit);
                                 // show goto the next button
                                 disablePosition();
                                 imageView.setVisibility(View.GONE);
