@@ -14,7 +14,7 @@ Another way to deploy this app to a smart cell phone is to build a APK file (ins
 
 ## Screenshots
 
-![App Screenshot](./screenshot/Capture0.PNG =250x)
+![App Screenshot](./screenshot/Capture0.PNG)
 
 
 ## Documentation
