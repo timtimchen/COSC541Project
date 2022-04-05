@@ -13,8 +13,8 @@ To setup and test this App, first we will need to download (or clone) all files 
 Another way to deploy this app to a smart cell phone is to build a APK file (installation package) by Android Studio, and then send the APK file to an Android cell phone and install the APK on it. After that, this App can run on the cell phone like normal apps.
 
 ## Screenshots
+<img src="./screenshot/Capture0.PNG" width="100"/>
 
-![App Screenshot](./screenshot/Capture0.PNG | width=100)
 
 
 ## Documentation
