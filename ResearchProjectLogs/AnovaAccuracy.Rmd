@@ -1,0 +1,118 @@
+---
+title: "Anova testing Accuracy"
+output:
+  pdf_document: default
+  html_document: default
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Hypothesis Testing for 8 interaction technique's Accuracy:
+
+
+```{r dataAnalysis}
+#Inputting Data: Analysis Excel sheet has "Accuracy" data of 8 interaction techniques
+library(openxlsx)
+library(stats)
+library(gridExtra)
+library(grid)
+data <- read.xlsx("Analysis.xlsx",colNames = FALSE, sheet="Accuracy")
+#Transpose
+Accuracy<- c(data[,1], data[,2], data[,3], data[,4], data[,5],
+                 data[,6], data[,7], data[,8])
+techniques <- c(rep('technique1', 8),rep('technique2', 8),rep('technique3', 8),
+                rep('technique4', 8),rep('technique5', 8),rep('technique6', 8),
+                rep('technique7', 8),rep('technique8', 8))
+combine <- cbind(Accuracy, techniques)
+
+```
+
+## Computing Mean and Standard Deviation of 8 technique's accuracy
+```{r meanResults}
+mean1<- mean(data$X1)
+sd1 = sqrt(var(data$X1))
+mean2<- mean(data$X2)
+sd2 = sqrt(var(data$X2))
+mean3<- mean(data$X3)
+sd3 = sqrt(var(data$X3))
+mean4<- mean(data$X4)
+sd4 = sqrt(var(data$X4))
+mean5<- mean(data$X5)
+sd5 = sqrt(var(data$X5))
+mean6<- mean(data$X6)
+sd6 = sqrt(var(data$X6))
+mean7<- mean(data$X7)
+sd7 = sqrt(var(data$X7))
+mean8<- mean(data$X8)
+sd8 = sqrt(var(data$X8))
+
+# Print in table
+r1 <- c("Technique id", "Mean", "Standard Deviation")
+r2 <- c("1", round(mean1, 2), round(sd1, 2))
+r3 <- c("2", round(mean2, 2), round(sd2, 2))
+r4 <- c("3", round(mean3, 2), round(sd3, 2))
+r5 <- c("4", round(mean4, 2), round(sd4, 2))
+r6 <- c("5", round(mean5, 2), round(sd5, 2))
+r7 <- c("6", round(mean6, 2), round(sd6, 2))
+r8 <- c("7", round(mean7, 2), round(sd7, 2))
+r9 <- c("8", round(mean8, 2), round(sd8, 2))
+tab <- rbind(r1, r2, r3, r4, r5, r6, r7,r8,r9)
+grid.table(tab, rows = NULL)
+
+```
+
+## Anova Tests : Mean Accuracy
+
+
+
+
+Study Populations: We have 8 participants in total to test 8 interaction techniques
+
+Research hypotheses: at least one population mean accuracy is different from the rest.
+
+
+Null hypotheses:  all the population means accuracy  are equal
+
+```{r AnovaResults}
+results <- aov(Accuracy ~ techniques)
+anova(results)
+```
+
+The decision is to reject the null hypothesis, as the p-value is < 0.05.
+There is sufficient evidence to see that the mean values for all techniques are not
+all equal. At least two of these techniques has mean values that were different from each
+other.
+
+## Creating side by side box plots
+
+```{r plot}
+boxplot(Accuracy~techniques,main = "Comparing Accuracy of 8 Techniques",   
+        xlab = "Techniques Number", ylab = "Accuracy ( 0 to 1)")
+```
+
+The boxplots show that the differences in performance in terms of accuracy for techniques (1,6), (1, 7) and (1,8) 
+due to how little of the boxplots “overlap”. However,
+techniques 6,7,8 overlap significantly, so there will likely be some similarities.
+Additionally, techniques 1,2,3,4 and 5 also overlap quite a bit, indicating
+that we may find some similarities in those techniques as well. This is supported by
+the mean of techniques 1 and 3 being similar to each other, as well as the
+mean of the techniques 1 and 2 and 1 and 5 having similar means. It is also evident that the
+techniques (8,3), (6,5), (7,5) and (8,5) have more of a difference in their means.
+
+
+
+## Tukey HSD (Honest Significant Difference) post hoc comparision
+A pairwise comparison technique that uses the Studentized range distribution to construct simultaneous confidence
+intervals for differences of all pairs of means. Studentization means dividing a
+mean value by its standard error. We are computing the Tukey HSD with confidence level of 0.95.
+
+```{r tukey}
+TukeyHSD(results, conf.level=0.95)
+```
+
+As we can see from the table above, techniques (6,1) has p(= 0.0039106) < 0.05, techniques (7,1) has p(= 0.0005165) < 0.05, techniques (8,1) has p(= 0.0002552) < 0.05. Also, it is evident that techniques(8,3) has  p(= 0.0306076) < 0.05, techniques (6,5) has  p(= 0.0282231) < 0.05, techniques (7,5) p(= 0.0046266) < 0.05 and techniques (8,5) p(= 0.0024188) < 0.05
+SO we can conclude that technique 1 has different mean than technique 6,7 and 8.Also,  technique 5 has different mean than technique 6,7 and 8.  Therefore, technique 1 and 5 is significantly more accurate than technique 6,7,8.  
+
+

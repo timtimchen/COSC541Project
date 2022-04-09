@@ -1,0 +1,124 @@
+---
+title: "ANOVA Testing in R studios"
+output: pdf_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Hypothesis Testing for 8 interaction techniques:
+
+
+```{r dataAnalysis}
+#Inputing Data: Analysis Excel sheet has "Time" data of 8 interaction techniques
+library(openxlsx)
+library(stats)
+library(gridExtra)
+library(grid)
+data <- read.xlsx("Analysis.xlsx",colNames = FALSE, sheet="Time")
+#Transpose
+time <- c(data[,1], data[,2], data[,3], data[,4], data[,5],
+                 data[,6], data[,7], data[,8])
+techniques <- c(rep('technique1', 8),rep('technique2', 8),rep('technique3', 8),
+                rep('technique4', 8),rep('technique5', 8),rep('technique6', 8),
+                rep('technique7', 8),rep('technique8', 8))
+combine <- cbind((time), techniques)
+
+```
+
+## Computing Mean and Standard Deviation of 8 techniques
+```{r meanResults}
+mean1<- mean(data$X1)
+sd1 = sqrt(var(data$X1))
+
+mean2<- mean(data$X2)
+sd2 = sqrt(var(data$X2))
+
+mean3<- mean(data$X3)
+sd3 = sqrt(var(data$X3))
+
+mean4<- mean(data$X4)
+sd4 = sqrt(var(data$X4))
+
+mean5<- mean(data$X5)
+sd5 = sqrt(var(data$X5))
+
+mean6<- mean(data$X6)
+sd6 = sqrt(var(data$X6))
+
+mean7<- mean(data$X7)
+sd7 = sqrt(var(data$X7))
+
+mean8<- mean(data$X8)
+sd8 = sqrt(var(data$X8))
+
+# Print in table
+r1 <- c("Technique id", "Mean", "Standard Deviation")
+r2 <- c("1", round(mean1, 2), round(sd1, 2))
+r3 <- c("2", round(mean2, 2), round(sd2, 2))
+r4 <- c("3", round(mean3, 2), round(sd3, 2))
+r5 <- c("4", round(mean4, 2), round(sd4, 2))
+r6 <- c("5", round(mean5, 2), round(sd5, 2))
+r7 <- c("6", round(mean6, 2), round(sd6, 2))
+r8 <- c("7", round(mean7, 2), round(sd7, 2))
+r9 <- c("8", round(mean8, 2), round(sd8, 2))
+tab <- rbind(r1, r2, r3, r4, r5, r6, r7,r8,r9)
+grid.table(tab, rows = NULL)
+
+```
+
+## Anova Tests : Mean Time Completion
+
+An ANOVA test is a type of statistical test used to determine if there is a statistically significant difference between two or more categorical groups by testing for differences of means using variance.
+
+
+
+Study Populations: We have 8 participants in total to test 8 interaction techniques
+
+Research hypotheses: at least one population mean of completion time is different from the rest.
+
+
+Null hypotheses:  all the population means of completion time are equal
+
+```{r AnovaResults}
+results <- aov(time ~ techniques)
+anova(results)
+```
+
+The decision is to reject the null hypothesis, as the p-value is < 0.05.
+There is sufficient evidence to see that the mean values for all techniques are not
+all equal. At least two of these techniques has mean values that were different from each
+other.
+
+## Creating side by side box plots
+
+```{r plot}
+boxplot(time~techniques,main = "Comparing time Performance of 8 Techniques", 
+        xlab = "Techniques Number", ylab = "Completion time (ms)")
+```
+
+The boxplots show that the differences in performance in terms of time for techniques 4,5 and 4, 7
+due to how little of the boxplots “overlap”. However,
+technique 1,2,3,4 and 8 overlap significantly, so there will likely be some similarities.
+Additionally, techniques 5,6,7 also overlap quite a bit, indicating
+that we may find some similarities in those techniques as well. This is supported by
+the mean of techniques 5 and 7 being similar to each other, as well as the
+mean of the techniques 1 and 8 having similar means. It is also evident that the
+techniques 4, 5 and 4, 7 have more of a difference in their means.
+
+
+
+## Tukey HSD (Honest Significant Difference) post hoc comparision
+A pairwise comparison technique that uses the Studentized range distribution to construct simultaneous confidence
+intervals for differences of all pairs of means. Studentization means dividing a
+mean value by its standard error. We are computing the Tukey HSD with confidence level of 0.95.
+
+```{r tukey}
+TukeyHSD(results, conf.level=0.95)
+```
+
+As we can see from the table above, technique 5 technique 4 has p(= 0.0387199) < 0.05 and technique 7 and technique 4 has p(= 0.0272632) < 0.05. SO we can conclude that technique 4 has different mean than technique 5 and 7. Therefore, technique 4 is significantly faster than technique 5 and 7.  
+
+
